@@ -1,3 +1,4 @@
+
 <h1><%= @category.title %></h1>
 
 <ul>
@@ -6,12 +7,13 @@
     <li>$<%=item.price.to_f/100 %> </li>
     <% if user_signed_in? %>
       <form action="/line_items/new" method="post">
-        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-        <%= tag(:input, :type => "hidden", :name => :item_id, :value => item.id) %>
-        <% binding.pry %>
-        <%= tag(:input, :type => "hidden", :name => :cart_id, :value => current_user.current_cart_id) %>
-        <input type="submit" value="Add To Cart">
-      </form>
+
+      <%= form_tag("/line_items/new", method: :post) do %>
+        <%= hidden_field_tag :item_id, item.id %>
+        <%= hidden_field_tag :cart_id, current_user.current_cart_id %>
+        <%= submit_tag "Add to Cart"%>
+      <% end %>
+
     <% end %>
 <% end %>
 </ul>
