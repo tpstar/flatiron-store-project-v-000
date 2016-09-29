@@ -20,12 +20,11 @@ class Cart < ActiveRecord::Base
   end
 
   def update_inventory
-
     self.items.each do |item|
-      binding.pry
-      item_in_cart = LineItem.find(item: item, cart: self)
+      # binding.pry
+      item_in_cart = LineItem.find_or_create_by(item: item, cart: self)
       item.inventory -= item_in_cart.quantity
-      item.update
+      item.save
     end
   end
 

@@ -8,6 +8,7 @@ class CartsController < ApplicationController
     @cart = Cart.find(params[:id])
     session[:checkout_button] = false
     @cart.update_inventory
+    @cart.destroy
     redirect_to cart_path(@cart)
   end
 
