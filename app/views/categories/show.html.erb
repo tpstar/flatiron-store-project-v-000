@@ -4,16 +4,9 @@
 <ul>
 <% @category.items.each do |item| %>
     <li><%= link_to item.title, item_path(item) %></li>
-    <li>$<%=item.price.to_f/100 %> </li>
+    <li>$<%=number_to_currency(item.price) %> </li>
     <% if user_signed_in? %>
-      <form action="/line_items/new" method="post">
-
-      <%= form_tag("/line_items/new", method: :post) do %>
-        <%= hidden_field_tag :item_id, item.id %>
-        <%= hidden_field_tag :cart_id, current_user.current_cart_id %>
-        <%= submit_tag "Add to Cart"%>
-      <% end %>
-
+      <%= button_to 'Add to Cart', line_items_path(item_id: item) %>
     <% end %>
 <% end %>
 </ul>

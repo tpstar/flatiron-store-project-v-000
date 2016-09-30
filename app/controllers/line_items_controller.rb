@@ -1,7 +1,7 @@
 class LineItemsController < ApplicationController
   def create
     user_item = Item.find(params[:item_id])
-    current_user.current_cart ||= Cart.new
+    current_user.current_cart ||= Cart.create(status: "shopping")
     if current_user.current_cart.items.include?(user_item)
 #      binding.pry
       user_line_item = LineItem.find_by(item: user_item, cart: current_user.current_cart)
